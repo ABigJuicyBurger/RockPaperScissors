@@ -13,6 +13,8 @@ function getComputerChoice() {
   }
 }
 
+//* Ask daniel about above, using random and if statment
+
 function getHumanChoice() {
   // let getHumanChoice return a valiod choice depending on user input
   let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
@@ -27,7 +29,7 @@ function getHumanChoice() {
     console.log("You entered scissors");
     return "scissors";
   } else {
-    console.log("please enter rock, paper or scissors");
+    prompt("please enter rock, paper or scissors");
     return getHumanChoice();
   }
 }
@@ -69,36 +71,34 @@ function playRound(humanChoice, computerChoice) {
       console.log("You lose");
       computerScore++;
     }
-  } else {
-    console.log("Please enter rock, paper or scissors");
   }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
-
-/*
-
-let humanSelection = getHumanChoice();
-let computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
-
-// write a function names playGame that calls playRound
+// write a function named playGame that calls playRound
 // to play 5 rounds, keeps track of the scores and declares
 // a winner at the end
 
+// Create a new function named playGame.
+// Move your playRound function and score variables so that they’re declared inside of the new playGame function
+
 function playGame() {
-  for (let i = 0; i < 5; i++) {
+  for (let round = 1; round <= 5; round++) {
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
     playRound(humanSelection, computerSelection);
   }
+  console.log("Final score:");
+  console.log("Human: " + humanScore);
+  console.log("Computer: " + computerScore);
   if (humanScore > computerScore) {
-    console.log("You win the game");
+    console.log("You win");
   } else if (computerScore > humanScore) {
-    console.log("You lose the game");
+    console.log("You lose");
+  } else {
+    console.log("It's a tie");
   }
 }
 
-*/
+// Play 5 rounds by calling playRound 5 times.
+
+playGame();
