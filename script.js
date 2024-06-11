@@ -13,10 +13,10 @@ function getComputerChoice() {
   }
 }
 
-//* Ask daniel about above, using random and if statment
+//* Ask daniel about null error when cancelling, and when entering nothing why 2 different prompts show up, as well as timing out prompt
 
 function getHumanChoice() {
-  // let getHumanChoice return a valiod choice depending on user input
+  // let getHumanChoice return a valid choice depending on user input
   let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
   HumanChoice = HumanChoice.toLowerCase();
   if (HumanChoice === "rock") {
@@ -29,7 +29,6 @@ function getHumanChoice() {
     console.log("You entered scissors");
     return "scissors";
   } else {
-    prompt("please enter rock, paper or scissors");
     return getHumanChoice();
   }
 }
@@ -47,28 +46,35 @@ let computerScore = 0;
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     console.log("It's a tie");
+    alert("It's a tie");
   } else if (humanChoice === "rock") {
     if (computerChoice === "scissors") {
-      console.log("You win");
+      console.log("You win this round");
+      alert("You win this round");
       humanScore++;
     } else {
-      console.log("You lose");
+      console.log("You lose this round");
+      alert("You lose this round");
       computerScore++;
     }
   } else if (humanChoice === "paper") {
     if (computerChoice === "rock") {
-      console.log("You win");
+      console.log("You win this round");
+      alert("You win this round");
       humanScore++;
     } else {
-      console.log("You lose");
+      console.log("You lose this round");
+      alert("You lose this round");
       computerScore++;
     }
   } else if (humanChoice === "scissors") {
     if (computerChoice === "paper") {
-      console.log("You win");
+      console.log("You win this round");
+      alert("You win this round");
       humanScore++;
     } else {
-      console.log("You lose");
+      console.log("You lose this round");
+      alert("You lose this round");
       computerScore++;
     }
   }
@@ -91,14 +97,18 @@ function playGame() {
   console.log("Human: " + humanScore);
   console.log("Computer: " + computerScore);
   if (humanScore > computerScore) {
-    console.log("You win");
+    console.log("You win this game");
+    alert("You win this game");
   } else if (computerScore > humanScore) {
-    console.log("You lose");
+    console.log("You lose this game");
+    alert("You lose this game");
   } else {
-    console.log("It's a tie");
+    console.log("It's a tie! Play this game again");
+    alert("It's a tie! Play this game again");
   }
 }
 
 // Play 5 rounds by calling playRound 5 times.
-
 playGame();
+
+// Timeout the prompt for 3 seconds so player knows who won current round
