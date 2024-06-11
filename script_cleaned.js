@@ -1,9 +1,15 @@
+const CHOICES = {
+  rock: "rock",
+  paper: "paper",
+  scissors: "scissors",
+};
+
 function getComputerChoice() {
   // let getcomputerchoice randomly return rock, paper or scissors
   let computerChoice = Math.floor(Math.random() * 3);
   if (computerChoice === 0) {
     console.log("Computer chose rock");
-    return "rock";
+    return CHOICES.rock;
   } else if (computerChoice === 1) {
     console.log("Computer chose paper");
     return "paper";
@@ -15,28 +21,38 @@ function getComputerChoice() {
 
 //* Ask daniel about null error when cancelling, , as well as timing out prompt
 
-const VALID_CHOICES = ["rock", "paper", "scissors"];
-
 function exitTheGame() {
   console.log("exited");
   return null;
 }
 
+// class Human {
+//   constructor(humanChoice) {
+//     this.humanChoice = humanChoice;
+//   }
+//   shout(){
+//     console.log(this.humanChoice);
+//   }
+// }
+
+// const bob = new Human("rock")
+// bob.shout()
+
 function getHumanChoice() {
   // let getHumanChoice return a valid choice depending on user input
-  let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
-  if (!HumanChoice) {
+  let humanChoice = prompt("Enter your choice: rock, paper or scissors");
+  if (!humanChoice) {
     // the user has hit cancel -> exit the game
     return null;
   }
-  HumanChoice = HumanChoice?.toLowerCase();
-  if (HumanChoice === "rock") {
+  // humanChoice = humanChoice?.toLowerCase();
+  if (humanChoice === "rock") {
     console.log("You entered rock");
     return "rock";
-  } else if (HumanChoice === "paper") {
+  } else if (humanChoice === "paper") {
     console.log("You entered paper");
     return "paper";
-  } else if (HumanChoice === "scissors") {
+  } else if (humanChoice === "scissors") {
     console.log("You entered scissors");
     return "scissors";
   } else {
@@ -54,42 +70,53 @@ let computerScore = 0;
 // plays a single round, increments the round winner's score and
 // logs a winner announcement
 
+const MAP_WIN_CONDITIONS = {
+  rock: "scissors",
+  paper: "rock",
+  scissors: "paper",
+};
+
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     console.log("It's a tie");
     alert("It's a tie");
-  } else if (humanChoice === "rock") {
-    if (computerChoice === "scissors") {
-      console.log("You win this round");
-      alert("You win this round");
-      humanScore++;
-    } else {
-      console.log("You lose this round");
-      alert("You lose this round");
-      computerScore++;
-    }
-  } else if (humanChoice === "paper") {
-    if (computerChoice === "rock") {
-      console.log("You win this round");
-      alert("You win this round");
-      humanScore++;
-    } else {
-      console.log("You lose this round");
-      alert("You lose this round");
-      computerScore++;
-    }
-  } else if (humanChoice === "scissors") {
-    if (computerChoice === "paper") {
-      console.log("You win this round");
-      alert("You win this round");
-      humanScore++;
-    } else {
-      console.log("You lose this round");
-      alert("You lose this round");
-      computerScore++;
-    }
+  } else {
+    handleChoice(computerChoice, MAP_WIN_CONDITIONS[humanChoice]);
+  }
+  // } else if (humanChoice === "rock") {
+  //   handleChoice(computerChoice, "scissors");
+  // } else if (humanChoice === "paper") {
+  //   handleChoice(computerChoice, "rock");
+  // } else if (humanChoice === "scissors") {
+  //   handleChoice(computerChoice, "paper");
+  // }
+}
+
+function handleChoice(computerChoice, winningMove) {
+  if (computerChoice === winningMove) {
+    console.log("You win this round");
+    alert("You win this round");
+    humanScore++;
+  } else {
+    console.log("You lose this round");
+    alert("You lose this round");
+    computerScore++;
   }
 }
+
+const humanBob = {
+  name: "Bob",
+  weight: 99999999999,
+  height: 0,
+};
+
+const listOfEmployees = [
+  {
+    name: "Bob",
+    weight: 99999999999,
+    height: 0,
+  },
+];
 
 // write a function named playGame that calls playRound
 // to play 5 rounds, keeps track of the scores and declares
