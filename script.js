@@ -1,3 +1,7 @@
+// TODO 1 - remove the prompts, replace with buttons
+// TODO 2 - add a button to start, play again
+// TODO 3 - current score tracker (You/Computer: 0/0)
+
 function getComputerChoice() {
   // let getcomputerchoice randomly return rock, paper or scissors
   let computerChoice = Math.floor(Math.random() * 3);
@@ -24,7 +28,8 @@ function exitTheGame() {
 
 function getHumanChoice() {
   // let getHumanChoice return a valid choice depending on user input
-  let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
+  // let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
+  let HumanChoice = null;
   if (!HumanChoice) {
     // the user has hit cancel -> exit the game
     return null;
@@ -50,6 +55,11 @@ function getHumanChoice() {
 let humanScore = 0;
 let computerScore = 0;
 
+// whenever we change some data (e.g. humanScore), update the UI to match the new values
+function updateUI() {
+  // TODO
+}
+
 // Create a function that takes human and computer player choices as arguments,
 // plays a single round, increments the round winner's score and
 // logs a winner announcement
@@ -57,35 +67,35 @@ let computerScore = 0;
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     console.log("It's a tie");
-    alert("It's a tie");
+    // alert("It's a tie");
   } else if (humanChoice === "rock") {
     if (computerChoice === "scissors") {
       console.log("You win this round");
-      alert("You win this round");
+      // alert("You win this round");
       humanScore++;
     } else {
       console.log("You lose this round");
-      alert("You lose this round");
+      // alert("You lose this round");
       computerScore++;
     }
   } else if (humanChoice === "paper") {
     if (computerChoice === "rock") {
       console.log("You win this round");
-      alert("You win this round");
+      // alert("You win this round");
       humanScore++;
     } else {
       console.log("You lose this round");
-      alert("You lose this round");
+      // alert("You lose this round");
       computerScore++;
     }
   } else if (humanChoice === "scissors") {
     if (computerChoice === "paper") {
       console.log("You win this round");
-      alert("You win this round");
+      // alert("You win this round");
       humanScore++;
     } else {
       console.log("You lose this round");
-      alert("You lose this round");
+      // alert("You lose this round");
       computerScore++;
     }
   }
@@ -116,13 +126,13 @@ function playGame() {
   console.log("Computer: " + computerScore);
   if (humanScore > computerScore) {
     console.log("You win this game");
-    alert("You win this game");
+    // alert("You win this game");
   } else if (computerScore > humanScore) {
     console.log("You lose this game");
-    alert("You lose this game");
+    // alert("You lose this game");
   } else {
     console.log("It's a tie! Play this game again");
-    alert("It's a tie! Play this game again");
+    // alert("It's a tie! Play this game again");
   }
 }
 
