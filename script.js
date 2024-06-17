@@ -1,6 +1,32 @@
-// TODO 1 - remove the prompts, replace with buttons
-// TODO 2 - add a button to start, play again
 // TODO 3 - current score tracker (You/Computer: 0/0)
+
+const rpsButtonsHtml = `<div>
+  <button class="userChoice choice-rock">🪨</button>
+  <button class="userChoice choice-paper">📰</button>
+  <button class="userChoice choice-scissors">✂️</button>
+</div>`;
+const playButtonsHtml = `<div>
+<button class="play-btn">Start</button>
+</div>`;
+
+// put the html inside the .container element
+const containerElement = document.querySelector(".container");
+// containerElement.innerHTML = rpsButtonsHtml;
+containerElement.innerHTML = playButtonsHtml;
+
+// handle clicks:
+// 1. handle starting the game
+// call playGame fn
+const playBtn = document.querySelector(".play-btn");
+playBtn.addEventListener("click", playGame);
+
+// TODO modify playGame fn to...
+// 1. show the rpsButtons
+// 2. add click handlers to the rps buttons
+// 3. when you click, update the score & round (Human: 0, Computer: 0, Round: 1)
+// 4. if round === 5, then show some winner ui "Human Wins!" & Play Again button
+
+// 2. handle user choice
 
 function getComputerChoice() {
   // let getcomputerchoice randomly return rock, paper or scissors
@@ -137,6 +163,6 @@ function playGame() {
 }
 
 // Play 5 rounds by calling playRound 5 times.
-const result = playGame();
+// const result = playGame();
 
 // Timeout the prompt for 3 seconds so player knows who won current round
