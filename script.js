@@ -91,6 +91,8 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
+// hi
+
 // write a function named playGame that calls playRound
 // to play 5 rounds, keeps track of the scores and declares
 // a winner at the end
