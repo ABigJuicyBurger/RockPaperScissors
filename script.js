@@ -9,6 +9,10 @@ const playButtonsHtml = `<div>
 <button class="play-btn">Start</button>
 </div>`;
 
+// Add a title
+const Title = document.querySelector(".title");
+Title.textContent = "Rock, Paper, Scissors";
+
 // put the html inside the .container element
 const containerElement = document.querySelector(".container");
 // containerElement.innerHTML = rpsButtonsHtml;
