@@ -47,36 +47,42 @@ function getComputerChoice() {
   }
 }
 
-//* Ask daniel about null error when cancelling, , as well as timing out prompt
-
-const VALID_CHOICES = ["rock", "paper", "scissors"];
-
-function exitTheGame() {
-  console.log("exited");
-  return null;
-}
-
 function getHumanChoice() {
   // let getHumanChoice return a valid choice depending on user input
   // let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
-  let HumanChoice = null;
-  if (!HumanChoice) {
-    // the user has hit cancel -> exit the game
-    return null;
-  }
-  HumanChoice = HumanChoice?.toLowerCase();
-  if (HumanChoice === "rock") {
-    console.log("You entered rock");
-    return "rock";
-  } else if (HumanChoice === "paper") {
-    console.log("You entered paper");
-    return "paper";
-  } else if (HumanChoice === "scissors") {
-    console.log("You entered scissors");
-    return "scissors";
-  } else {
-    return getHumanChoice();
-  }
+  // show the buttons
+  containerElement.innerHTML = rpsButtonsHtml;
+
+  // Update UI with initial scores and round
+  updateUI();
+
+  // Get all the buttons
+  const buttons = document.querySelectorAll(".userChoice");
+
+  // Add event listener to button
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const humanSelection = button.classList[1].split("-")[1];
+      console.log(`You entered ${humanSelection}`);
+      const computerSelection = getComputerChoice();
+      playRound(humanSelection, computerSelection);
+      playNextRound();
+    });
+  });
+
+  /* let HumanChoice = rpsButtonsHtml.addEventListener("click", () => {
+    if (HumanChoice === "rock") {
+      console.log("You entered rock");
+      return "rock";
+    } else if (HumanChoice === "paper") {
+      console.log("You entered paper");
+      return "paper";
+    } else if (HumanChoice === "scissors") {
+      console.log("You entered scissors");
+      return "scissors";
+    }
+  });
+  */
 }
 
 // Create two new variables named humanScore and computerScore and
@@ -84,51 +90,49 @@ function getHumanChoice() {
 
 let humanScore = 0;
 let computerScore = 0;
+let currentRound = 1;
 
 // whenever we change some data (e.g. humanScore), update the UI to match the new values
 function updateUI() {
   // TODO
+  const scoreElement = document.createElement("div");
+  scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+  containerElement.appendChild(scoreElement);
 }
 
-// Create a function that takes human and computer player choices as arguments,
-// plays a single round, increments the round winner's score and
-// logs a winner announcement
+// 3. when you click, update the score & round (Human: 0, Computer: 0, Round: 1)
 
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     console.log("It's a tie");
-    // alert("It's a tie");
   } else if (humanChoice === "rock") {
     if (computerChoice === "scissors") {
       console.log("You win this round");
-      // alert("You win this round");
       humanScore++;
     } else {
       console.log("You lose this round");
-      // alert("You lose this round");
       computerScore++;
     }
   } else if (humanChoice === "paper") {
     if (computerChoice === "rock") {
       console.log("You win this round");
-      // alert("You win this round");
       humanScore++;
     } else {
       console.log("You lose this round");
-      // alert("You lose this round");
       computerScore++;
     }
   } else if (humanChoice === "scissors") {
     if (computerChoice === "paper") {
       console.log("You win this round");
-      // alert("You win this round");
       humanScore++;
     } else {
       console.log("You lose this round");
-      // alert("You lose this round");
       computerScore++;
     }
   }
+
+  updateUI();
+  currentRound++;
 }
 
 // hi
@@ -141,29 +145,34 @@ function playRound(humanChoice, computerChoice) {
 // Move your playRound function and score variables so that they’re declared inside of the new playGame function
 
 function playGame() {
-  for (let round = 1; round <= 5; round++) {
-    const humanSelection = getHumanChoice();
-    const humanHitCancel = humanSelection === null;
-    if (humanHitCancel) {
-      // the player hit cancel
-      return exitTheGame();
+  const maxRounds = 5;
+  const humanSelection = getHumanChoice();
+  const computerSelection = getComputerChoice();
+
+  function playNextRound() {
+    if (currentRound > maxRounds) {
+      console.log("Final score:");
+      console.log("Human: " + humanScore);
+      console.log("Computer: " + computerScore);
+      if (humanScore > computerScore) {
+        console.log("You win this game");
+        // alert("You win this game");
+      } else if (computerScore > humanScore) {
+        console.log("You lose this game");
+        // alert("You lose this game");
+      } else {
+        console.log("It's a tie! Play this game again");
+        // alert("It's a tie! Play this game again");
+      }
+      return;
     }
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
+
+    // Get Human Choice and play the round
+    getHumanChoice();
   }
-  console.log("Final score:");
-  console.log("Human: " + humanScore);
-  console.log("Computer: " + computerScore);
-  if (humanScore > computerScore) {
-    console.log("You win this game");
-    // alert("You win this game");
-  } else if (computerScore > humanScore) {
-    console.log("You lose this game");
-    // alert("You lose this game");
-  } else {
-    console.log("It's a tie! Play this game again");
-    // alert("It's a tie! Play this game again");
-  }
+
+  // Start the game
+  playNextRound();
 }
 
 // Play 5 rounds by calling playRound 5 times.
