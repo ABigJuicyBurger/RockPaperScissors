@@ -2,16 +2,26 @@
 
 // Apply CSS styles to the rock paper scissors game but not the whole doc
 const body = document.querySelector("body");
-body.setAttribute("style", "border: 1px solid red; padding: 10px;");
+body.setAttribute("style", "border: 5px solid red; padding: 15%;");
 
-const rpsButtonsHtml = `<div>
+const rpsButtonsHtml = `<div id = rps-buttons>
   <button class="userChoice choice-rock">🪨</button>
   <button class="userChoice choice-paper">📰</button>
   <button class="userChoice choice-scissors">✂️</button>
 </div>`;
+const rpsButtons = document.getElementById("rps-buttons");
+
 const playButtonsHtml = `<div>
 <button class="play-btn">Start</button>
 </div>`;
+
+//Play again button
+const playAgainHtml = `<div>
+<button class="play-again-btn">Play Again</button>
+</div>`;
+const playAgainDiv = document.createElement("div");
+
+//play again div
 
 // Add a title
 const Title = document.querySelector(".title");
@@ -19,7 +29,7 @@ Title.textContent = "Rock, Paper, Scissors";
 
 // put the html inside the .container element
 const containerElement = document.querySelector(".container");
-// containerElement.innerHTML = rpsButtonsHtml;
+
 containerElement.innerHTML = playButtonsHtml;
 
 // handle clicks:
@@ -44,11 +54,17 @@ document.body.appendChild(choicesElement);
 
 // 3. when you click, update the score & round (Human: 0, Computer: 0, Round: 1)
 function updateUI(humanChoice, computerChoice) {
-  scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
-  choicesElement.textContent = `You chose: ${humanChoice}, Computer chose: ${computerChoice}`;
+  if (!gameEnded) {
+    scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+    choicesElement.textContent = `You chose: ${humanChoice}, Computer chose: ${computerChoice}`;
+  } else {
+    // POTENTIAL BUG
+    scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+  }
 }
 
-const maxRounds = 5;
+const maxRounds = 4;
+let gameEnded = false;
 
 function playGame() {
   // Reset scores and round
@@ -61,6 +77,7 @@ function playGame() {
   containerElement.innerHTML = "";
 
   // Show emoji buttons
+
   containerElement.innerHTML = rpsButtonsHtml;
 
   // Update UI with initial scores and round
@@ -91,6 +108,17 @@ function playRound(humanChoice, computerChoice) {
   }
   if (currentRound <= maxRounds) {
     currentRound++;
+  } else if (currentRound > maxRounds) {
+    // TODO 4 - show winner UI
+    gameEnded = true;
+    if (humanScore > computerScore) {
+      containerElement.innerHTML = "You win! Play again?";
+      playAgainButton();
+    } else {
+      containerElement.innerHTML = "Computer wins! Play again?";
+      playAgainButton();
+    }
+    // TODO 6 - add Play Again button click handler
   }
   // whenever we change some data (e.g. humanScore), update the UI to match the new values
   updateUI(humanChoice, computerChoice); // Call updateUI and pass the 2 parameters
@@ -120,6 +148,14 @@ function getHumanChoice() {
       return humanSelection;
     });
   });
+}
+
+function playAgainButton() {
+  playAgainDiv.innerHTML = playAgainHtml;
+  containerElement.appendChild(playAgainDiv);
+  const playAgainBtn = playAgainDiv.querySelector(".play-again-btn");
+  playAgainBtn.addEventListener("click", playGame);
+  playAgainBtn.setAttribute("style", "border: 1px solid black; width: 100%;");
 }
 
 // Timeout the prompt for 3 seconds so player knows who won current round
