@@ -23,6 +23,12 @@ const playAgainDiv = document.createElement("div");
 
 //play again div
 
+// Win or lose div
+const winOrLoseHtml = `<div>
+<h1 class="win-or-lose"></h1>
+</div>`;
+const winOrLoseDiv = document.createElement("div");
+
 // Add a title
 const Title = document.querySelector(".title");
 Title.textContent = "Rock, Paper, Scissors";
@@ -55,11 +61,16 @@ document.body.appendChild(choicesElement);
 // 3. when you click, update the score & round (Human: 0, Computer: 0, Round: 1)
 function updateUI(humanChoice, computerChoice) {
   if (!gameEnded) {
-    scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
-    choicesElement.textContent = `You chose: ${humanChoice}, Computer chose: ${computerChoice}`;
-  } else {
-    // POTENTIAL BUG
-    scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+    if (currentRound == 1) {
+      scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+      choicesElement.textContent = `Choose rock, paper, or scissors`;
+    } else if ((currentRound) => 1) {
+      scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+      choicesElement.textContent = `You chose: ${humanChoice}, Computer chose: ${computerChoice}`;
+    } else {
+      // POTENTIAL BUG
+      scoreElement.textContent = `You: ${humanScore}, Computer: ${computerScore}, Round: ${currentRound}`;
+    }
   }
 }
 
@@ -90,6 +101,8 @@ function playGame() {
 function playRound(humanChoice, computerChoice) {
   // using object mapping to simplify code
   if (humanChoice === computerChoice) {
+    winOrLoseDiv.innerHTML = "It's a tie!";
+    containerElement.appendChild(winOrLoseDiv);
     console.log("It's a tie");
   } else {
     const winningMoves = {
@@ -99,9 +112,14 @@ function playRound(humanChoice, computerChoice) {
     };
 
     if (winningMoves[humanChoice] === computerChoice) {
+      // use win or lose div from above
+      winOrLoseDiv.innerHTML = "You win this round!";
+      containerElement.appendChild(winOrLoseDiv);
       console.log("You win this round!");
       humanScore++;
     } else {
+      winOrLoseDiv.innerHTML = "You lose this round!";
+      containerElement.appendChild(winOrLoseDiv);
       console.log("You lose this round!");
       computerScore++;
     }
@@ -151,11 +169,51 @@ function getHumanChoice() {
 }
 
 function playAgainButton() {
-  playAgainDiv.innerHTML = playAgainHtml;
+  // Clear the container element
+  containerElement.innerHTML = "";
+
+  // Create the "Play Again" button HTML
+  let playAgainHTML;
+
+  if (humanScore > computerScore) {
+    playAgainHTML = `<div>You win! <button class="play-again-btn">Play Again</button></div>`;
+  } else {
+    playAgainHTML = `<div>Computer wins! <button class="play-again-btn">Play Again</button></div>`;
+  }
+
+  containerElement.innerHTML = playAgainHTML;
+
+  // Get the "Play Again" button element
+  const playAgainBtn = containerElement.querySelector(".play-again-btn");
+
+  // Add click event listener to the "Play Again" button
+  playAgainBtn.addEventListener("click", () => {
+    // Reset scores and round
+    humanScore = 0;
+    computerScore = 0;
+    currentRound = 1;
+    gameEnded = false;
+
+    // Clear the scoreboard and choices elements
+    scoreElement.textContent = "";
+    choicesElement.textContent = "";
+
+    // Clear the console
+    console.clear();
+
+    // Start a new game
+    playGame();
+  });
+
+  // Apply styles to the "Play Again" button
+  playAgainBtn.setAttribute("style", "border: 1px solid black; width: 100%;");
+}
+
+/* playAgainDiv.innerHTML = playAgainHtml;
   containerElement.appendChild(playAgainDiv);
   const playAgainBtn = playAgainDiv.querySelector(".play-again-btn");
   playAgainBtn.addEventListener("click", playGame);
   playAgainBtn.setAttribute("style", "border: 1px solid black; width: 100%;");
-}
+  */
 
 // Timeout the prompt for 3 seconds so player knows who won current round
