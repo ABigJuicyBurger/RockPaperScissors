@@ -22,6 +22,8 @@ function exitTheGame() {
   return null;
 }
 
+// Testing changes for new repository
+
 function getHumanChoice() {
   // let getHumanChoice return a valid choice depending on user input
   let HumanChoice = prompt("Enter your choice: rock, paper or scissors");
