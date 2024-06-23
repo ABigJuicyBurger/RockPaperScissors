@@ -1,0 +1,62 @@
+/* style.css */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid red;
+  box-sizing: border-box;
+}
+
+.container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.play-again-btn {
+  border: 1px solid black;
+  width: 100%;
+}
+
+.win {
+  text-align: center;
+  color: green;
+}
+
+.lose {
+  text-align: center;
+  color: red;
+}
+
+.userChoice {
+  width: 80px; /* Adjust the width as needed */
+  height: 80px; /* Adjust the height as needed */
+  font-size: 2rem; /* Adjust the font-size as needed */
+  line-height: 80px; /* Set the line-height to match the height */
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.userChoice:hover {
+  background-color: #e0e0e0;
+}
