@@ -1,15 +1,8 @@
-// TODO 3 - current score tracker (You/Computer: 0/0)
-
-// Apply CSS styles to the rock paper scissors game but not the whole doc
-const body = document.querySelector("body");
-body.setAttribute("style", "border: 5px solid red; padding: 15%;");
-
 const rpsButtonsHtml = `<div id = rps-buttons>
   <button class="userChoice choice-rock">🪨</button>
   <button class="userChoice choice-paper">📰</button>
   <button class="userChoice choice-scissors">✂️</button>
 </div>`;
-const rpsButtons = document.getElementById("rps-buttons");
 
 const playButtonsHtml = `<div>
 <button class="play-btn">Start</button>
@@ -44,7 +37,6 @@ containerElement.innerHTML = playButtonsHtml;
 const playBtn = document.querySelector(".play-btn");
 playBtn.addEventListener("click", playGame);
 
-// TODO modify playGame fn to...
 // 2. add click handlers to the rps buttons
 // 3. when you click, update the score & round (Human: 0, Computer: 0, Round: 1)
 // 4. if round === 5, then show some winner ui "Human Wins!" & Play Again button
@@ -127,16 +119,8 @@ function playRound(humanChoice, computerChoice) {
   if (currentRound <= maxRounds) {
     currentRound++;
   } else if (currentRound > maxRounds) {
-    // TODO 4 - show winner UI
     gameEnded = true;
-    if (humanScore > computerScore) {
-      containerElement.innerHTML = "You win! Play again?";
-      playAgainButton();
-    } else {
-      containerElement.innerHTML = "Computer wins! Play again?";
-      playAgainButton();
-    }
-    // TODO 6 - add Play Again button click handler
+    playAgainButton();
   }
   // whenever we change some data (e.g. humanScore), update the UI to match the new values
   updateUI(humanChoice, computerChoice); // Call updateUI and pass the 2 parameters
@@ -176,9 +160,9 @@ function playAgainButton() {
   let playAgainHTML;
 
   if (humanScore > computerScore) {
-    playAgainHTML = `<div>You win! <button class="play-again-btn">Play Again</button></div>`;
+    playAgainHTML = `<div class="win">You win! <button class="play-again-btn">Play Again</button></div>`;
   } else {
-    playAgainHTML = `<div>Computer wins! <button class="play-again-btn">Play Again</button></div>`;
+    playAgainHTML = `<div class="lose">Computer wins! <button class="play-again-btn">Play Again</button></div>`;
   }
 
   containerElement.innerHTML = playAgainHTML;
@@ -206,14 +190,16 @@ function playAgainButton() {
   });
 
   // Apply styles to the "Play Again" button
-  playAgainBtn.setAttribute("style", "border: 1px solid black; width: 100%;");
-}
+  // Add a class to the "Play Again" button
+  playAgainBtn.classList.add("play-again-btn");
 
-/* playAgainDiv.innerHTML = playAgainHtml;
-  containerElement.appendChild(playAgainDiv);
-  const playAgainBtn = playAgainDiv.querySelector(".play-again-btn");
-  playAgainBtn.addEventListener("click", playGame);
-  playAgainBtn.setAttribute("style", "border: 1px solid black; width: 100%;");
-  */
+  // Get the win and lose div element and provide CSS
+  const win = document.querySelector(".win");
+  const lose = document.querySelector(".lose");
+
+  // Add a class to the win and lose div elements
+  win.classList.add("win");
+  lose.classList.add("lose");
+}
 
 // Timeout the prompt for 3 seconds so player knows who won current round
