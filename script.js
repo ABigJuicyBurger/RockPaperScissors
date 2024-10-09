@@ -1,7 +1,7 @@
 const rpsButtonsHtml = `<div id = rps-buttons>
-  <button class="userChoice choice-rock">🪨</button>
-  <button class="userChoice choice-paper">📰</button>
-  <button class="userChoice choice-scissors">✂️</button>
+  <button class="userChoice choice-rock" tabindex ='0'>🪨</button>
+  <button class="userChoice choice-paper" tabindex='0'>📰</button>
+  <button class="userChoice choice-scissors" tabindex=0'0>✂️</button>
 </div>`;
 
 const playButtonsHtml = `<div>
